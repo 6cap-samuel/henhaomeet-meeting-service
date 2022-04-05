@@ -1,14 +1,11 @@
 package samuel.henhaomeet.meetingservice.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.codec.multipart.Part;
 
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 @Data
 @Builder
@@ -29,6 +26,10 @@ public class Meeting {
         return this;
     }
 
+    public Set<Participant> getParticipantSet() {
+        return participantSet == null ? new HashSet<>() : participantSet;
+    }
+
     public static class Factory {
         public static Meeting build(
                 final String id,
@@ -44,8 +45,11 @@ public class Meeting {
                     .description(description)
                     .location(location)
                     .dateTime(dateTime)
-                    .participantSet(participantSet)
-                    .build();
+                    .participantSet(
+                            participantSet == null ?
+                                    new HashSet<>() :
+                                    participantSet
+                    ).build();
         }
     }
 }

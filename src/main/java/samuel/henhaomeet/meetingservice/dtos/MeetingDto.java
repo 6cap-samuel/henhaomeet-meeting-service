@@ -7,9 +7,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
-@AllArgsConstructor(staticName = "of")
+@Builder
 @Document("meetings")
 public class MeetingDto {
     @Id
@@ -18,6 +20,7 @@ public class MeetingDto {
     private String description;
     private String location;
     private Instant dateTime;
+    private Set<ParticipantDto> participants;
 
     public static class Factory {
         public static MeetingDto build(
@@ -25,15 +28,17 @@ public class MeetingDto {
                 final String title,
                 final String description,
                 final String location,
-                final Instant dateTime
+                final Instant dateTime,
+                final Set<ParticipantDto> participantDtoSet
         ){
-            return MeetingDto.of(
-                    id,
-                    title,
-                    description,
-                    location,
-                    dateTime
-            );
+            return MeetingDto.builder()
+                    .id(id)
+                    .title(title)
+                    .description(description)
+                    .location(location)
+                    .dateTime(dateTime)
+                    .participants(participantDtoSet)
+                    .build();
         }
     }
 }

@@ -10,7 +10,7 @@ import samuel.henhaomeet.meetingservice.repositories.CreateMeetingAdapter;
 @AllArgsConstructor
 public class CreateMeetingService {
 
-    final CreateMeetingAdapter createMeetingAdapter;
+    private final CreateMeetingAdapter createMeetingAdapter;
 
     public Mono<Meeting> run(Meeting meeting) {
         return this.createMeetingAdapter.createMeeting(meeting);

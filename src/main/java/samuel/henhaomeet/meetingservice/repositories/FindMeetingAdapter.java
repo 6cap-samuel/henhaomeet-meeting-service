@@ -7,6 +7,8 @@ import reactor.core.publisher.Mono;
 import samuel.henhaomeet.meetingservice.models.Meeting;
 import samuel.henhaomeet.meetingservice.repositories.mappers.DtoToMeetingMapper;
 
+import java.util.Comparator;
+
 @Service
 @AllArgsConstructor
 public class FindMeetingAdapter {
@@ -23,6 +25,7 @@ public class FindMeetingAdapter {
     public Flux<Meeting> findAll() {
          return this.meetingRepository
                  .findAll()
-                 .map(dtoToMeetingMapper::map);
+                 .map(dtoToMeetingMapper::map)
+                 .sort(Comparator.comparing(Meeting::getCreatedDate).reversed());
     }
 }

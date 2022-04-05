@@ -1,5 +1,6 @@
 package samuel.henhaomeet.meetingservice.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
@@ -29,13 +30,18 @@ public class Meeting {
         return this;
     }
 
+    public Meeting setCreatedDate() {
+        this.createdDateTime = Instant.now();
+        return this;
+    }
+
     public Set<Participant> getParticipantSet() {
         return participantSet == null ? new HashSet<>() : participantSet;
     }
 
-    public Meeting setCreatedDate() {
-        this.createdDateTime = Instant.now();
-        return this;
+    @JsonIgnore
+    public Instant getCreatedDate() {
+        return createdDateTime == null ? Instant.MIN : createdDateTime;
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)

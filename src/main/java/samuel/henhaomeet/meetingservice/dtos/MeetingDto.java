@@ -20,6 +20,7 @@ public class MeetingDto {
     private String location;
     private Instant dateTime;
     private Set<ParticipantDto> participants;
+    private Instant createdDateTime;
 
     public Set<ParticipantDto> getParticipants() {
         return participants == null ? new HashSet<>() : participants;
@@ -32,7 +33,8 @@ public class MeetingDto {
                 final String description,
                 final String location,
                 final Instant dateTime,
-                final Set<ParticipantDto> participantDtoSet
+                final Set<ParticipantDto> participantDtoSet,
+                final Instant createdDateTime
         ){
             return MeetingDto.builder()
                     .id(id)
@@ -41,6 +43,7 @@ public class MeetingDto {
                     .location(location)
                     .dateTime(dateTime)
                     .participants(participantDtoSet)
+                    .createdDateTime(createdDateTime)
                     .build();
         }
     }

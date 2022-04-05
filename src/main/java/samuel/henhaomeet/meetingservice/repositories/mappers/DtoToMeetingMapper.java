@@ -23,7 +23,8 @@ public class DtoToMeetingMapper {
                 meetingDto.getParticipants()
                         .stream()
                         .map(dtoToParticipantMapper::map)
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toSet()),
+                meetingDto.getCreatedDateTime()
         );
     }
 }

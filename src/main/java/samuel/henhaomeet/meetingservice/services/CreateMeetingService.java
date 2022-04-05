@@ -13,6 +13,8 @@ public class CreateMeetingService {
     private final CreateMeetingAdapter createMeetingAdapter;
 
     public Mono<Meeting> run(Meeting meeting) {
-        return this.createMeetingAdapter.createMeeting(meeting);
+        return this.createMeetingAdapter.createMeeting(
+                meeting.setCreatedDate()
+        );
     }
 }

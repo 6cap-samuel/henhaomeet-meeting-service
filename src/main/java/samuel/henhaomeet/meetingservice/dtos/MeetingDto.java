@@ -1,6 +1,5 @@
 package samuel.henhaomeet.meetingservice.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -21,6 +20,10 @@ public class MeetingDto {
     private String location;
     private Instant dateTime;
     private Set<ParticipantDto> participants;
+
+    public Set<ParticipantDto> getParticipants() {
+        return participants == null ? new HashSet<>() : participants;
+    }
 
     public static class Factory {
         public static MeetingDto build(

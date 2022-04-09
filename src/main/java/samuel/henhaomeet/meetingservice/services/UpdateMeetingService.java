@@ -8,13 +8,13 @@ import samuel.henhaomeet.meetingservice.repositories.ModifyMeetingAdapter;
 
 @Service
 @AllArgsConstructor
-public class CreateMeetingService {
+public class UpdateMeetingService {
 
     private final ModifyMeetingAdapter modifyMeetingAdapter;
 
     public Mono<Meeting> run(Meeting meeting) {
         return this.modifyMeetingAdapter.modifyMeeting(
-                meeting.setCreatedDate()
+                meeting.setUpdatedDate()
         );
     }
 }

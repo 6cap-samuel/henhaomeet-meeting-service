@@ -9,18 +9,17 @@ import samuel.henhaomeet.meetingservice.repositories.mappers.MeetingToDtoMapper;
 
 @Service
 @AllArgsConstructor
-public class CreateMeetingAdapter {
+public class ModifyMeetingAdapter {
 
     private final MeetingRepository meetingRepository;
     private final DtoToMeetingMapper dtoToMeetingMapper;
     private final MeetingToDtoMapper meetingToDtoMapper;
 
-    public Mono<Meeting> createMeeting(Meeting meeting) {
+    public Mono<Meeting> modifyMeeting(Meeting meeting) {
         return this.meetingRepository.save(
                 meetingToDtoMapper.map(
                         meeting
                 )
         ).map(dtoToMeetingMapper::map);
     }
-
 }

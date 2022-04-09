@@ -20,6 +20,7 @@ public class Meeting {
     private Instant dateTime;
     private Set<Participant> participantSet;
     private Instant createdDateTime;
+    private Instant updatedDateTime;
 
     public Meeting addParticipant(
             final Participant participant
@@ -32,7 +33,13 @@ public class Meeting {
 
     public Meeting setCreatedDate() {
         this.createdDateTime = Instant.now();
+        this.updatedDateTime = Instant.now();
         return this;
+    }
+
+    public Meeting setUpdatedDate() {
+         this.updatedDateTime = Instant.now();
+         return this;
     }
 
     public Set<Participant> getParticipantSet() {
@@ -44,6 +51,11 @@ public class Meeting {
         return createdDateTime == null ? Instant.MIN : createdDateTime;
     }
 
+    @JsonIgnore
+    public Instant getUpdatedDate() {
+        return updatedDateTime == null ? Instant.MIN : updatedDateTime;
+    }
+
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Factory {
         public static Meeting build(
@@ -53,7 +65,8 @@ public class Meeting {
                 final String location,
                 final Instant dateTime,
                 final Set<Participant> participantSet,
-                final Instant createdDateTime
+                final Instant createdDateTime,
+                final Instant updatedDateTime
         ){
             return Meeting.builder()
                     .id(id)
@@ -67,6 +80,7 @@ public class Meeting {
                                     participantSet
                     )
                     .createdDateTime(createdDateTime)
+                    .updatedDateTime(updatedDateTime)
                     .build();
         }
     }

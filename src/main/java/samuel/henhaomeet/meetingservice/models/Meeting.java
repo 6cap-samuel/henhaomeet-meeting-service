@@ -31,6 +31,18 @@ public class Meeting {
         return this;
     }
 
+    public Meeting modifyParticipant(
+            final Participant target
+    ) {
+        for (Participant participant: participantSet) {
+             if (participant.getName().equals(target.getName())) {
+                  participant.setStatus(target.getStatus());
+                  break;
+             }
+        }
+        return this;
+    }
+
     public Meeting setCreatedDate() {
         this.createdDateTime = Instant.now();
         this.updatedDateTime = Instant.now();

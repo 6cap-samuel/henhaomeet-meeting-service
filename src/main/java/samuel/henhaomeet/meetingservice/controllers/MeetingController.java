@@ -11,14 +11,13 @@ import samuel.henhaomeet.meetingservice.controllers.mappers.RequestToMeetingMapp
 import samuel.henhaomeet.meetingservice.controllers.mappers.RequestToParticipantMapper;
 import samuel.henhaomeet.meetingservice.controllers.requests.AddParticipantRequest;
 import samuel.henhaomeet.meetingservice.controllers.requests.CreateMeetingRequest;
+import samuel.henhaomeet.meetingservice.controllers.requests.PatchParticipantRequest;
 import samuel.henhaomeet.meetingservice.controllers.requests.UpdateMeetingRequest;
 import samuel.henhaomeet.meetingservice.controllers.responses.CreateMeetingResponse;
+import samuel.henhaomeet.meetingservice.controllers.responses.PatchMeetingResponse;
 import samuel.henhaomeet.meetingservice.controllers.responses.UpdateMeetingResponse;
 import samuel.henhaomeet.meetingservice.models.Meeting;
-import samuel.henhaomeet.meetingservice.services.AddParticipantService;
-import samuel.henhaomeet.meetingservice.services.CreateMeetingService;
-import samuel.henhaomeet.meetingservice.services.ListMeetingService;
-import samuel.henhaomeet.meetingservice.services.UpdateMeetingService;
+import samuel.henhaomeet.meetingservice.services.*;
 
 @RestController
 @RequestMapping("/meeting")
@@ -27,9 +26,10 @@ import samuel.henhaomeet.meetingservice.services.UpdateMeetingService;
 public class MeetingController {
 
     private final CreateMeetingService createMeetingService;
-    private final AddParticipantService addParticipantService;
     private final ListMeetingService listMeetingService;
     private final UpdateMeetingService updateMeetingService;
+    private final AddParticipantService addParticipantService;
+    private final ModifyParticipantService modifyParticipantService;
 
     private final MeetingToResponseMapper responseMapper;
     private final RequestToMeetingMapper requestToMeetingMapper;
@@ -79,6 +79,21 @@ public class MeetingController {
                         requestToParticipantMapper.map(addParticipantRequest)
                 ).map(
                         responseMapper::mapToCreate
+                )
+        );
+    }
+
+    @PatchMapping("/{id}/participant")
+    public ResponseEntity<Mono<PatchMeetingResponse>> modifyParticipant(
+            @PathVariable("id") String meetingId,
+            @RequestBody PatchParticipantRequest patchParticipantRequest
+    ) {
+        return ResponseEntity.ok(
+                modifyParticipantService.run(
+                        meetingId,
+                        requestToParticipantMapper.map(patchParticipantRequest)
+                ).map(
+                        responseMapper::mapToPatch
                 )
         );
     }

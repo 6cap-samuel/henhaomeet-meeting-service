@@ -2,6 +2,7 @@ package samuel.henhaomeet.meetingservice.controllers.mappers;
 
 import org.springframework.stereotype.Component;
 import samuel.henhaomeet.meetingservice.controllers.responses.CreateMeetingResponse;
+import samuel.henhaomeet.meetingservice.controllers.responses.PatchMeetingResponse;
 import samuel.henhaomeet.meetingservice.controllers.responses.UpdateMeetingResponse;
 import samuel.henhaomeet.meetingservice.models.Meeting;
 
@@ -15,4 +16,7 @@ public class MeetingToResponseMapper {
         return UpdateMeetingResponse.Factory.build(meeting);
     }
 
+    public PatchMeetingResponse mapToPatch(Meeting meeting) {
+        return PatchMeetingResponse.Factory.build(meeting);
+    }
 }
